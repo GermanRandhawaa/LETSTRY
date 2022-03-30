@@ -75,7 +75,7 @@ function writeProducts() {
         last_updated: firebase.firestore.Timestamp.fromDate(new Date("January 1, 2022"))
     });
 }
-writeProducts();
+// writeProducts();
 
 
 function populateCardsDynamically() {
