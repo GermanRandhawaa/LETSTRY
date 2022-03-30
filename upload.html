@@ -14,8 +14,11 @@
     <!------------------------------------------>
     <!-- Bootstrap Library CSS JS CDN go here -->
     <!------------------------------------------>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 
     <!-------------------------------------------------------->
     <!-- Firebase 8 Library related CSS, JS, JQuery go here -->
@@ -32,16 +35,18 @@
     <!-------------------------------------------->
     <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
     <!-- <link rel="stylesheet" href="./styles/style.css"> -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="upload.css">
 </head>
 
 <body>
     <!-- navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-warning">
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="image.png" height="36"> Olympic merchandise</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <img src="images/image.png" height="36"> Olympic merchandise</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -59,17 +64,48 @@
     </nav>
 
     <!-- body -->
-    <h1>Working on it.....</h1>
+    <section class="upload">
+        <h1 class="title">Your product</h1>
+
+        <div class="container">
+            <div class="contact-form row">
+                <div class="form-field col-lg-6">
+                    <input type="text" id="name" class="input-text" name="">
+                    <label for="name" class="label">Name</label>
+                </div>
+                <div class="form-field col-lg-6">
+                    <input type="email" id="email" class="input-text" name="">
+                    <label for="email" class="label">email</label>
+                </div>
+                <div class="form-field col-lg-6">
+                    <input type="text" id="phone" class="input-text" name="">
+                    <label for="phone" class="label">Contact no</label>
+                </div>
+                <div class="form-field col-lg-6">
+                    <input type="text" id="prod-name" class="input-text" name="">
+                    <label for="prod-name" class="label">Product-Name</label>
+                </div>
+                <div class="form-field col-lg-6">
+                    <input type="text" id="desc" class="input-text" name="">
+                    <label for="desc" class="label">Description</label>
+                </div>
+                <div class="form-field col-lg-6">
+                    <input type="text" id="price" class="input-text" name="">
+                    <label for="price" class="label">Price</label>
+                </div>
+                <div class="form-field col-lg-6">
+                    <input type="file" id="myFile" onchange="readURL(this)" accept="Image/*">
+                </div>
+                <div class="form-field col-lg-12">
+                    <input type="submit" class="submit-btn" value="Submit">
+                </div>
+            </div>
+
+        </div>
+    </section>
 
     <!-- footer -->
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <p class="col-md-4 mb-0 text-muted">&copy; 2022 BCIT BBY18 Creations</p>
-        <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-            <svg class="bi me-2" width="40" height="32">
-                    <use xlink:href="#bootstrap" />
-                </svg>
-        </a>
-    </footer>
+
 </body>
 
 </html>

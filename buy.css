@@ -1,0 +1,18 @@
+#wel{
+    width: 100%;
+    color: white;
+    text-align: center;
+    background-color: #692818;
+    font-size: 30px;
+    font-weight: lighter;
+}
+.container{
+    margin-top: 25px;
+}
+
+.card{
+    background-color: black;
+    color: white;
+    margin: 5px;
+    
+}
