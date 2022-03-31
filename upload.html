@@ -35,7 +35,7 @@
     <!-------------------------------------------->
     <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
     <!-- <link rel="stylesheet" href="./styles/style.css"> -->
-    <link rel="stylesheet" href="upload.css">
+    <link rel="stylesheet" href="styles/upload.css">
 </head>
 
 <body>
@@ -94,10 +94,10 @@
                     <label for="price" class="label">Price</label>
                 </div>
                 <div class="form-field col-lg-6">
-                    <input type="file" id="myFile" onchange="readURL(this)" accept="Image/*">
+                    <input type="file" id="myFile" accept="Image/*">
                 </div>
                 <div class="form-field col-lg-12">
-                    <input type="submit" class="submit-btn" value="Submit">
+                    <input id="submit" type="submit" class="submit-btn" value="Submit">
                 </div>
             </div>
 
@@ -105,6 +105,8 @@
     </section>
 
     <!-- footer -->
+    <script src="scripts/upload.js"></script>
+    <script src="scripts/firebaseAPI_teamBBY18.js"></script>
 
 </body>
 

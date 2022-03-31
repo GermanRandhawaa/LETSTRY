@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+#wel{
+    width: 100%;
+    color: white;
+    text-align: center;
+    background-color: #692818;
+    font-size: 30px;
+    font-weight: lighter;
+}
+
+.checked {
+    color: orange;
+  }
+
+.container{
+    margin-top: 20px;
+}
+
+
