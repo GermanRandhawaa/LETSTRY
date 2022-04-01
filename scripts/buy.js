@@ -1,12 +1,68 @@
+var currentUser; 
+decide();
+firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+        currentUser = db.collection("users").doc(user.uid);   //global
+        console.log(currentUser);
+
+        // the following functions are always called when someone is logged in
+        insertName();
+    } else {
+        // No user is signed in.
+        console.log("No user is signed in");
+        window.location.href = "login.html";
+    }
+});
+
+
+function insertName(){
+// to check if the user is logged in:
+ firebase.auth().onAuthStateChanged(user =>{
+     if (user){
+         console.log(user.uid); // let me to know who is the user that logged in to get the UID
+        currentUser = db.collection("users").doc(user.uid); // will to to the firestore and go to the document of the user
+        currentUser.get().then(userDoc=>{
+            //get the user name
+            var user_Name= userDoc.data().name;
+            console.log(user_Name);
+            $("#name-goes-here").text(user_Name); //jquery
+            document.getElementByID("name-goes-here").innetText=user_Name;
+        })    
+    }
+
+ })
+}
+
+
 function decide(){
     var id;
+    db.collection("items").get().then(snap => {
+        snap.forEach(doc => {
+            id = doc.id;
+            var row = document.getElementById("row");
+            var columns = row.children;
+            var isthere = false;
+            for (var x = 0; x < columns.length; x++) {
+                var c = columns[x];
+                if (c.id === id){
+                    isthere = true;
+                    break;
+                }
+            }
+            if(isthere === false){
+                fetch(id);
+            }
+        });
+
+    }).then(()=>{
+        read();
+    })
 
 }
 
 function fetch(paper) {
-    var id;
     var arr = card();
-    db.collection("items").doc("Pahul Sidhu").onSnapshot(doc => {
+    db.collection("items").doc(paper).onSnapshot(doc => {
        var column = arr[0];
        var card = arr[1];
        var cardbody = arr[2];
@@ -32,7 +88,7 @@ function fetch(paper) {
        card.append(cardbody);
        column.append(card);
        column.setAttribute("id", `${doc.id}`);
-       document.getElementById("row1").append(column);
+       document.getElementById("row").append(column);
        
     });
     
@@ -85,5 +141,12 @@ function card(){
     return arr;
     
 }
- 
 
+function read(){
+    var r = document.getElementsByClassName("btn");
+    for(var i = 0; i < r.length; i++){
+        r[i].addEventListener("click", ()=>{
+            window.open("../readmore.html");
+        })
+    }
+}

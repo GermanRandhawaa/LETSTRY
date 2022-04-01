@@ -5,7 +5,7 @@ document.getElementById("submit").addEventListener("click", () => {
     var prodname = document.getElementById("prod-name").value;
     var desc = document.getElementById("desc").value;
     var price = document.getElementById("price").value;
-    var img = document.getElementById("myFile").value;
+    var img = document.getElementById("img").value;
 
     db
         .collection("items")
@@ -18,11 +18,14 @@ document.getElementById("submit").addEventListener("click", () => {
             Description: desc,
             Price: price,
             Img: img
-        }).then(() => {
-            window.open("../upload2.html", "_self");
-        });
-    
+        })
 });
+
+
+
+
+
+
 
 
 

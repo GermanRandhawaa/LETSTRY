@@ -46,6 +46,7 @@
     transform: translateY(-24px);
 }
 .contact-form .label{
+    margin-bottom: 17px;
     position: absolute;
     left: 20px;
     bottom: 11px;
@@ -55,7 +56,7 @@
     color: #692818;
     cursor: text;
     text-transform: capitalize;
-    transition: transform 0.2s ease-in-out;
+    transition: transform 0.2s ease-out;
 }
 
 .contact-form .submit-btn{

@@ -13,22 +13,21 @@ function getBookmarks(user) {
             console.log(bookmarks);
 
             let CardTemplate = document.getElementById("CardTemplate");
-            bookmarks.forEach(thisHikeID => {
-                console.log(thisHikeID);
-                db.collection("Hikes").where("id", "==", thisHikeID).get().then(snap => {
+            bookmarks.forEach(productID => {
+                console.log(productID);
+                db.collection("buyProducts").where("id", "==", productID).get().then(snap => {
                     size = snap.size;
                     queryData = snap.docs;
                     
                     if (size == 1) {
                         var doc = queryData[0].data();
-                        var hikeName = doc.name; //gets the name field
-                        var hikeID = doc.id; //gets the unique ID field
-                        var hikeLength = doc.length; //gets the length field
+                        var productName = doc.name; //gets the name field
+                        var productID = doc.id; //gets the unique ID field
+                        
                         let newCard = CardTemplate.content.cloneNode(true);
-                        newCard.querySelector('.card-title').innerHTML = hikeName;
-                        newCard.querySelector('.card-length').innerHTML = hikeLength;
-                        newCard.querySelector('a').onclick = () => setHikeData(hikeID);
-                        newCard.querySelector('img').src = `./images/${hikeID}.jpg`;
+                        newCard.querySelector('.card-title').innerHTML = productName;
+                        newCard.querySelector('a').onclick = () => setProductData(productID);
+                        newCard.querySelector('img').src = `./images/${productID}.jpg`;
                         hikeCardGroup.appendChild(newCard);
                     } else {
                         console.log("Query has more than one data")

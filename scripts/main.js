@@ -15,18 +15,6 @@ firebase.auth().onAuthStateChanged(user => {
 });
 
 
-// function read_display_Quote(){
-//     console.log("inside the function")
-
-//     //get into the right collection
-//     db.collection("quotes").doc("tuesday")
-//     .onSnapshot(function(tuesdayDoc) {
-//         console.log(tuesdayDoc.data());
-//         document.getElementById("quote-goes-here").innerHTML=tuesdayDoc.data().quote;
-//     })
-// }
-// read_display_Quote();
-
 function insertName(){
 // to check if the user is logged in:
  firebase.auth().onAuthStateChanged(user =>{
@@ -38,7 +26,7 @@ function insertName(){
             var user_Name= userDoc.data().name;
             console.log(user_Name);
             $("#name-goes-here").text(user_Name); //jquery
-            // document.getElementByID("name-goes-here").innetText=user_Name;
+            document.getElementByID("name-goes-here").innetText=user_Name;
         })    
     }
 
@@ -75,7 +63,7 @@ function writeProducts() {
         last_updated: firebase.firestore.Timestamp.fromDate(new Date("January 1, 2022"))
     });
 }
-writeProducts();
+// writeProducts();
 
 
 function populateCardsDynamically() {
@@ -104,7 +92,7 @@ function populateCardsDynamically() {
             })
         })
 }
-// populateCardsDynamically();
+populateCardsDynamically();
 
 //-----------------------------------------------------------------------------
 // This function is called whenever the user clicks on the "bookmark" icon.
