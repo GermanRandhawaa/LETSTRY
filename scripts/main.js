@@ -1,10 +1,11 @@
 var currentUser;
 firebase.auth().onAuthStateChanged(user => {
     if (user) {
-        currentUser = db.collection("users").doc(user.uid);   //global
+        currentUser = db.collection("users").doc(user.uid); //global
         console.log(currentUser);
 
         // the following functions are always called when someone is logged in
+        read_display_Quote();
         insertName();
         populateCardsDynamically();
     } else {
@@ -14,25 +15,16 @@ firebase.auth().onAuthStateChanged(user => {
     }
 });
 
-
-function insertName(){
-// to check if the user is logged in:
- firebase.auth().onAuthStateChanged(user =>{
-     if (user){
-         console.log(user.uid); // let me to know who is the user that logged in to get the UID
-        currentUser = db.collection("users").doc(user.uid); // will to to the firestore and go to the document of the user
-        currentUser.get().then(userDoc=>{
-            //get the user name
-            var user_Name= userDoc.data().name;
-            console.log(user_Name);
-            $("#name-goes-here").text(user_Name); //jquery
-            document.getElementByID("name-goes-here").innetText=user_Name;
-        })    
-    }
-
- })
+// Insert name function using the global variable "currentUser"
+function insertName() {
+    currentUser.get().then(userDoc => {
+        //get the user name
+        var user_Name = userDoc.data().name;
+        console.log(user_Name);
+        $("#name-goes-here").text(user_Name); //jquery
+        // document.getElementByID("name-goes-here").innetText=user_Name;
+    })
 }
-insertName();
 
 function writeProducts() {
     //define a variable for the collection you want to create in Firestore to populate data
@@ -44,7 +36,7 @@ function writeProducts() {
         productPrice: "300$",
         city: "Burnaby",
         province: "BC",
-        last_updated: firebase.firestore.FieldValue.serverTimestamp()  //current system time
+        last_updated: firebase.firestore.FieldValue.serverTimestamp() //current system time
     });
     productRef.add({
         productId: "A02",
@@ -67,53 +59,52 @@ function writeProducts() {
 
 
 function populateCardsDynamically() {
-    let productCardTemplate = document.getElementById("productCardTemplate");  //card template
-    let productCardGroup = document.getElementById("productCardGroup");   //where to append card
-    db.collection("buyProducts").get()
-        .then(allproducts => {
-            allproducts.forEach(doc => {
-                var productName = doc.data().name; //gets the name field
-                var productID = doc.data().id; //gets the unique ID field
-                let testProductCard = productCardTemplate.content.cloneNode(true);
-                testProductCard.querySelector('.card-title').innerHTML = productName;
-                testProductCard.querySelector('a').onclick = () => setProductData(productID);
+    let hikeCardTemplate = document.getElementById("hikeCardTemplate"); //card template
+    let hikeCardGroup = document.getElementById("hikeCardGroup"); //where to append card
+
+    db.collection("Hikes").get()
+        .then(allHikes => {
+            allHikes.forEach(doc => {
+                var hikeName = doc.data().name; //gets the name field
+                var hikeID = doc.data().id; //gets the unique ID field
+                var hikeLength = doc.data().length; //gets the length field
+                let testHikeCard = hikeCardTemplate.content.cloneNode(true);
+                testHikeCard.querySelector('.card-title').innerHTML = hikeName;
+                testHikeCard.querySelector('.card-length').innerHTML = hikeLength;
+                testHikeCard.querySelector('a').onclick = () => setHikeData(hikeID);
 
                 //next 2 lines are new for demo#11
                 //this line sets the id attribute for the <i> tag in the format of "save-hikdID" 
                 //so later we know which hike to bookmark based on which hike was clicked
-                testProductCard.querySelector('i').id = 'save-' + productID;
+                testHikeCard.querySelector('i').id = 'save-' + hikeID;
                 // this line will call a function to save the hikes to the user's document             
-                testProductCard.querySelector('i').onclick = () => saveBookmark(productID);
+                testHikeCard.querySelector('i').onclick = () => saveBookmark(hikeID);
 
-                testProductCard.querySelector('.read-more').href = "eachHike.html?hikeName="+productName +"&id=" + productID;
-                
-                testProductCard.querySelector('img').src = `./images/${productID}.jpg`;
-                productCardGroup.appendChild(testHikeCard);
+                testHikeCard.querySelector('img').src = `./images/${hikeID}.jpg`;
+                hikeCardGroup.appendChild(testHikeCard);
             })
         })
 }
-populateCardsDynamically();
 
 //-----------------------------------------------------------------------------
 // This function is called whenever the user clicks on the "bookmark" icon.
 // It adds the hike to the "bookmarks" array
 // Then it will change the bookmark icon from the hollow to the solid version. 
 //-----------------------------------------------------------------------------
-function saveBookmark(productID) {
+function saveBookmark(hikeID) {
     currentUser.set({
             bookmarks: firebase.firestore.FieldValue.arrayUnion(hikeID)
         }, {
             merge: true
         })
-        .then(function () {
+        .then(function() {
             console.log("bookmark has been saved for: " + currentUser);
-            var iconID = 'save-' + productID;
+            var iconID = 'save-' + hikeID;
             //console.log(iconID);
             document.getElementById(iconID).innerText = 'bookmark';
         });
 }
 
-function setHikeData(id){
-    localStorage.setItem('hikeID',id);
+function setHikeData(id) {
+    localStorage.setItem('hikeID', id);
 }
-
