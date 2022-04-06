@@ -18,6 +18,8 @@ document.getElementById("submit").addEventListener("click", () => {
             Description: desc,
             Price: price,
             Img: img
+        }).then(()=>{
+            window.location.href = "../uploadthanks.html"
         })
 });
 
