@@ -105,6 +105,8 @@ document.getElementById("btn").addEventListener("click", () => {
     db.collection("posts").doc(`post ${i}`)
         .set({
             comment: post
+        }).then(()=>{
+            window.location.href = "../thanks.html"
         })
     document.getElementById("form").style.display = "none";
 })
