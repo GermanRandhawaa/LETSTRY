@@ -83,7 +83,6 @@ function fetch(paper) {
         cardbody.append(head);
         cardbody.append(cardtext);
         cardbody.append(ul);
-        cardbody.append(bm);
         card.append(img);
         card.append(cardbody);
         column.append(card);
