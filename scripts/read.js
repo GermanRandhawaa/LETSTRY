@@ -112,7 +112,7 @@ document.getElementById("btn").addEventListener("click", () => {
 function fillpost() {
     db.collection("posts").get().then(snap => {
         snap.forEach(doc => {
-            // var p = document.createElement("p");
+            var p = document.createElement("p");
             p.innerHTML = doc.data().comment;
             document.getElementById("comments").append(p);
         })
