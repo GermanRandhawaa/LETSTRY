@@ -1,4 +1,4 @@
-var currentUser; 
+var currentUser;
 decide();
 firebase.auth().onAuthStateChanged(user => {
     if (user) {
@@ -15,26 +15,25 @@ firebase.auth().onAuthStateChanged(user => {
 });
 
 
-function insertName(){
-// to check if the user is logged in:
- firebase.auth().onAuthStateChanged(user =>{
-     if (user){
-         console.log(user.uid); // let me to know who is the user that logged in to get the UID
-        currentUser = db.collection("users").doc(user.uid); // will to to the firestore and go to the document of the user
-        currentUser.get().then(userDoc=>{
-            //get the user name
-            var user_Name= userDoc.data().name;
-            console.log(user_Name);
-            $("#name-goes-here").text(user_Name); //jquery
-            document.getElementByID("name-goes-here").innetText=user_Name;
-        })    
-    }
+function insertName() {
+    // to check if the user is logged in:
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            console.log(user.uid); // let me to know who is the user that logged in to get the UID
+            currentUser = db.collection("users").doc(user.uid); // will to to the firestore and go to the document of the user
+            currentUser.get().then(userDoc => {
+                //get the user name
+                var user_Name = userDoc.data().name;
+                $("#name-goes-here").text(user_Name); //jquery
+                document.getElementByID("name-goes-here").innetText = user_Name;
+            })
+        }
 
- })
+    })
 }
 
 
-function decide(){
+function decide() {
     var id;
     db.collection("items").get().then(snap => {
         snap.forEach(doc => {
@@ -44,18 +43,16 @@ function decide(){
             var isthere = false;
             for (var x = 0; x < columns.length; x++) {
                 var c = columns[x];
-                if (c.id === id){
+                if (c.id === id) {
                     isthere = true;
                     break;
                 }
             }
-            if(isthere === false){
+            if (isthere === false) {
                 fetch(id);
             }
         });
 
-    }).then(()=>{
-        read();
     })
 
 }
@@ -63,38 +60,42 @@ function decide(){
 function fetch(paper) {
     var arr = card();
     db.collection("items").doc(paper).onSnapshot(doc => {
-       var column = arr[0];
-       var card = arr[1];
-       var cardbody = arr[2];
-       var head = arr[3];
-       var cardtext = arr[4];
-       var ul = arr[5];
-       var price = arr[6];
-       var rate = arr[7];
-       var btn = arr[8];
-       var img = arr[9];
-       price.innerHTML = doc.data().Price;
-       ul.append(price);
-       ul.append(rate);
-       ul.append(btn);
-       cardtext.innerHTML = doc.data().Description;
-       head.innerHTML = doc.data().Product;
-       img.setAttribute("src", `${doc.data().Img}`);
-       img.setAttribute("alt", "image not found");
-       cardbody.append(head);
-       cardbody.append(cardtext);
-       cardbody.append(ul);
-       card.append(img);
-       card.append(cardbody);
-       column.append(card);
-       column.setAttribute("id", `${doc.id}`);
-       document.getElementById("row").append(column);
-       
+        var column = arr[0];
+        var card = arr[1];
+        var cardbody = arr[2];
+        var head = arr[3];
+        var cardtext = arr[4];
+        var ul = arr[5];
+        var price = arr[6];
+        var rate = arr[7];
+        var btn = arr[8];
+        var img = arr[9];
+        price.innerHTML = doc.data().Price;
+        ul.append(price);
+        ul.append(rate);
+        btn.setAttribute("id", `${doc.id}rm`);
+        btn.setAttribute("onclick", "reply_click(this.id)")
+        ul.append(btn);
+        cardtext.innerHTML = doc.data().Description;
+        head.innerHTML = doc.data().Product;
+        img.setAttribute("src", `${doc.data().Img}`);
+        img.setAttribute("alt", "image not found");
+        cardbody.append(head);
+        cardbody.append(cardtext);
+        cardbody.append(ul);
+        cardbody.append(bm);
+        card.append(img);
+        card.append(cardbody);
+        column.append(card);
+        column.setAttribute("id", `${doc.id}`);
+        document.getElementById("row").append(column);
+
+
     });
-    
-    
+
+
 }
-function card(){
+function card() {
     var column = document.createElement("div");
     column.setAttribute("class", "col-12 col-md-6 col-lg-3");
     var card = document.createElement("div");
@@ -111,7 +112,7 @@ function card(){
     price.setAttribute("class", "list-group-item");
     var rate = document.createElement("li");
     rate.setAttribute("class", "list-group-item");
-    for(var i = 1; i<=5; i++){
+    for (var i = 1; i <= 5; i++) {
         var sp = document.createElement("span");
         sp.setAttribute("class", "fa fa-star checked");
         rate.append(sp);
@@ -139,14 +140,37 @@ function card(){
     arr.push(btn);
     arr.push(img);
     return arr;
-    
+
 }
 
-function read(){
-    var r = document.getElementsByClassName("btn");
-    for(var i = 0; i < r.length; i++){
-        r[i].addEventListener("click", ()=>{
-            window.open("../readmore.html");
+function reply_click(id) {
+
+    db.collection("reviews").get().then(snap => {
+        snap.forEach(doc => {
+            if (doc.id != id) {
+                doc.ref.delete();
+            }
         })
-    }
+    });
+
+
+    db.collection("reviews").doc(id).set({
+        reviewID: id
+    }).then(() => {
+        window.location.href = "../readmore.html";
+    });
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
